@@ -1,0 +1,29 @@
+Day_1 Objectives
+
+Learning Canvas
+Define Tetris container exemple
+Define Test Object
+
+________________
+Day_2 Objectives
+
+Define Scroll down animation
+Define border container
+Define rotation block
+Define collide blocks
+Define all type of blocks
+Define random.blocks
+Define player Movement
+Define deadlines
+
+Bonus if possible : Shaddow down / Ghost ??
+
+_____________________
+Day_3,4,5 Obejectives
+
+Define Score
+Define Next block List
+Define Hold Block
+Define Difficulty
+Define backgrounds animations
+Define different styles 
