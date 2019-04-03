@@ -1,72 +1,11 @@
-// Tetris JS
-/*
-//Setting up
-const canvas = document.getElementById('tetris');
-const ctx = canvas.getContext('2d');
-ctx.scale(20,20);
-
-// Exemple of the tetris container 
-ctx.fillStyle = "#000";
-ctx.fillRect(0,0, canvas.width, canvas.height);
-
-// Création (test) d'une figure en matrice
-// Espace en + pour le pivot 
-const Tsign = [
-    [0,0,0],
-    [1,1,1],
-    [0,1,0],
-];
-
-function draw(){
-    drawMatrice(player1.matrice, player1.pos);
-}
-
-
-// Impressions des value matrice dans le canvas 
-function drawMatrice(Tsign, offset){
-    Tsign.forEach((row,y) => {  //Recherche sur la longueur/largeur
-        row.forEach((value,x) => { // recherher des cases (0,1)
-            if (value !== 0) { // Si la case est 1, dessiner une case bleu
-                ctx.fillStyle = 'purple';
-                ctx.fillRect(x + offset.x,
-                                 y + offset.y,
-                                 1, 1)};
-        });
-    })  ;
-}
-
-
-let dropCounter = 0;
-let dropInterval = 1000;
-let lastTime = 0;
-function update(time = 0) {
-    const deltaTime = time - lastTime;
-    lastTime = time;    
-    dropCounter += deltaTime;
-    if (dropCounter > dropInterval) {
-        player1.pos.y++;
-        dropCounter =0 ;
-    }
-
-
-
-    draw();
-    requestAnimationFrame(update);
-}
-
-
-const player1 = {
-    pos:{x:5 , y:5},
-    matrice : Tsign,
-}
-
-update();
-*/
-
+// Define the canvas html to js
 const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 
+// scale of a "block"and arena (container)
 context.scale(20, 20);
+const arena = createMatrix(10, 21);
+
 
 function arenaSweep() {
     let rowCount = 1;
@@ -76,12 +15,9 @@ function arenaSweep() {
                 continue outer;
             }
         }
-
         const row = arena.splice(y, 1)[0].fill(0);
         arena.unshift(row);
         ++y;
-
-        player.score += rowCount * 10;
         rowCount *= 2;
     }
 }
@@ -101,6 +37,7 @@ function collide(arena, player) {
     return false;
 }
 
+
 function createMatrix(w, h) {
     const matrix = [];
     while (h--) {
@@ -109,57 +46,12 @@ function createMatrix(w, h) {
     return matrix;
 }
 
-function createPiece(type)
-{
-    if (type === 'I') {
-        return [
-            [0, 1, 0, 0],
-            [0, 1, 0, 0],
-            [0, 1, 0, 0],
-            [0, 1, 0, 0],
-        ];
-    } else if (type === 'L') {
-        return [
-            [0, 2, 0],
-            [0, 2, 0],
-            [0, 2, 2],
-        ];
-    } else if (type === 'J') {
-        return [
-            [0, 3, 0],
-            [0, 3, 0],
-            [3, 3, 0],
-        ];
-    } else if (type === 'O') {
-        return [
-            [4, 4],
-            [4, 4],
-        ];
-    } else if (type === 'Z') {
-        return [
-            [5, 5, 0],
-            [0, 5, 5],
-            [0, 0, 0],
-        ];
-    } else if (type === 'S') {
-        return [
-            [0, 6, 6],
-            [6, 6, 0],
-            [0, 0, 0],
-        ];
-    } else if (type === 'T') {
-        return [
-            [0, 7, 0],
-            [7, 7, 7],
-            [0, 0, 0],
-        ];
-    }
-}
-
 function drawMatrix(matrix, offset) {
     matrix.forEach((row, y) => {
         row.forEach((value, x) => {
             if (value !== 0) {
+                context.shadowBlur=3;
+                context.shadowColor="black";    
                 context.fillStyle = colors[value];
                 context.fillRect(x + offset.x,
                                  y + offset.y,
@@ -169,7 +61,7 @@ function drawMatrix(matrix, offset) {
     });
 }
 
-function draw() {
+function draw() {   
     context.fillStyle = '#000';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -233,10 +125,10 @@ function playerReset() {
                    (player.matrix[0].length / 2 | 0);
     if (collide(arena, player)) {
         arena.forEach(row => row.fill(0));
-        player.score = 0;
     }
 }
 
+// Rotate Array 
 function playerRotate(dir) {
     const pos = player.pos.x;
     let offset = 1;
@@ -252,40 +144,70 @@ function playerRotate(dir) {
     }
 }
 
+// Drop down each sec
 let dropCounter = 0;
 let dropInterval = 1000;
-
 let lastTime = 0;
 function update(time = 0) {
     const deltaTime = time - lastTime;
-
     dropCounter += deltaTime;
     if (dropCounter > dropInterval) {
         playerDrop();
     }
-
     lastTime = time;
-
     draw();
-    requestAnimationFrame(update);
+    requestAnimationFrame(update); // Loop it
 }
 
 
-
-document.addEventListener('keydown', event => {
-    if (event.keyCode === 37) {
-        playerMove(-1);
-    } else if (event.keyCode === 39) {
-        playerMove(1);
-    } else if (event.keyCode === 40) {
-        playerDrop();
-    } else if (event.keyCode === 69) {
-        playerRotate(-1);
-    } else if (event.keyCode === 82) {
-        playerRotate(1);
+// Function creating piece inside a array
+function createPiece(type) {
+    if (type === 'I') {
+        return [
+            [0, 1, 0, 0],
+            [0, 1, 0, 0],
+            [0, 1, 0, 0],
+            [0, 1, 0, 0],
+        ];
+    } else if (type === 'L') {
+        return [
+            [0, 2, 0],
+            [0, 2, 0],
+            [0, 2, 2],
+        ];
+    } else if (type === 'J') {
+        return [
+            [0, 3, 0],
+            [0, 3, 0],
+            [3, 3, 0],
+        ];
+    } else if (type === 'O') {
+        return [
+            [4, 4],
+            [4, 4],
+        ];
+    } else if (type === 'Z') {
+        return [
+            [5, 5, 0],
+            [0, 5, 5],
+            [0, 0, 0],
+        ];
+    } else if (type === 'S') {
+        return [
+            [0, 6, 6],
+            [6, 6, 0],
+            [0, 0, 0],
+        ];
+    } else if (type === 'T') {
+        return [
+            [0, 7, 0],
+            [7, 7, 7],
+            [0, 0, 0],
+        ];
     }
-});
+}
 
+// Color dépending of the position of the piece
 const colors = [
     null,
     '#FF0D72',
@@ -297,13 +219,29 @@ const colors = [
     '#3877FF',
 ];
 
-const arena = createMatrix(12, 20);
-
+// Creating a player w/ his object
 const player = {
     pos: {x: 0, y: 0},
     matrix: null,
-    score: 0,
 };
 
+// Event listener => player key settings 
+document.addEventListener('keydown', event => {
+    if (event.keyCode === 37) {
+        playerMove(-1);
+    } else if (event.keyCode === 39) {
+        playerMove(1);
+    } else if (event.keyCode === 40) {
+        playerDrop();
+    } else if (event.keyCode === 69) {
+        playerRotate(-1);
+    } else if (event.keyCode === 82) {
+        playerRotate(1);
+    } else if (event.keyCode === 38) {
+        playerRotate(1);
+    }
+});
+
+// auto launch exec
 playerReset();
 update();

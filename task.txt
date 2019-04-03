@@ -24,23 +24,16 @@ Define Score
 Define Next block List
 Define Hold Block
 Define Difficulty
-Define backgrounds animations
-Define different styles 
-Tetris waar ????? 1V1 ???
-
+Define backgrounds animations //
+Define different styles // add as a bonus 
+Tetris waar ????? 1V1 ??? // bonus
+Music ?
 
 
 ________________
 
 things to add quickly :
 - scoreboard
-- Instant drop button 
 - Preview drop
 - Hold block
 - Next blocks (at least 4 preview blocks)
-
-if possible :
-- swap array blocks to img ? exemple ghost : http://learn.ironhack.com/#/learning_unit/6435
-
-if =/=
-- clean the blocks and container 
