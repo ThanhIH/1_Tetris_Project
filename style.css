@@ -61,10 +61,6 @@ canvas{
 	top:1px;
 }
 
-.scoreContainer,h1, #score{
+h1, #score{
     display: flex;
-}
-
-#score{
-    font-size: 16px;
 }
