@@ -17,7 +17,7 @@ canvas{
     font-size: 2em; 
     text-align : center;
     position: relative;
-    margin-top: 218px;
+    top: 50px;
     padding: 0 70px 0 80px;
 
 }
@@ -49,9 +49,9 @@ canvas{
 	padding:2px 21px;
 	text-decoration:none;
     text-shadow:0px 1px 0px #2f6627;
-    margin-top: 360px;
+    margin-top: 415px;
     transform: rotate(-31deg);
-    margin-left: 667px;
+    margin-left: 501px;
 }
 #gamebtn:hover {
 	background-color:#020500;
@@ -63,4 +63,8 @@ canvas{
 
 h1, #score{
     display: flex;
+
+}
+#score{
+    font-size: -webkit-xxx-large;
 }
