@@ -7,8 +7,6 @@
 const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 
-
-
 /////////////////////////////////////////////
 //             CANVAS SETTINGS             //
 /////////////////////////////////////////////
@@ -19,25 +17,6 @@ context.scale(20, 20);
 // create the limits of the Arena Canvas, every blocks is a array -> can console.table(arena)
 const arena = createMatrix(10, 21);
 
-// 
-function arenaSweep() {
-    let rowCount = 1;
-    outer: for (let y = arena.length -1; y > 0; --y) {
-        for (let x = 0; x < arena[y].length; ++x) {
-            if (arena[y][x] === 0) {
-                continue outer;
-            }
-        }
-        const row = arena.splice(y, 1)[0].fill(0);
-        arena.unshift(row);
-        ++y;
-
-        player.score += rowCount * 10;
-        rowCount *= 2;
-    }
-}
-
-
 function createMatrix(w, h) {
     const matrix = [];
     while (h--) {
@@ -47,7 +26,7 @@ function createMatrix(w, h) {
 }
 
 
-
+// draw pieces
 function drawMatrix(matrix, offset) {
     matrix.forEach((row, y) => {
         row.forEach((value, x) => {
@@ -63,7 +42,7 @@ function drawMatrix(matrix, offset) {
     });
 }
 
-// draw
+// draw canvas
 function draw() {   
     context.fillStyle = '#000';
     context.fillRect(0, 0, canvas.width, canvas.height);
@@ -83,6 +62,7 @@ function merge(arena, player) {
         });
     });
 }
+
 
 /////////////////////////////////////////////
 //            BLOCKS SETTINGS              //
@@ -184,7 +164,7 @@ function collide(arena, player) {
     return false;
 }
 
-//
+//random piece
 function playerReset() {
     const pieces = 'TJLOSZI';
     player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
@@ -215,6 +195,23 @@ function update(time = 0) {
     requestAnimationFrame(update); // Loop it
 }
 
+// row destroyed
+function arenaSweep() {
+    let rowCount = 1;
+    outer: for (let y = arena.length -1; y > 0; --y) {
+        for (let x = 0; x < arena[y].length; ++x) {
+            if (arena[y][x] === 0) {
+                continue outer;
+            }
+        }
+        const row = arena.splice(y, 1)[0].fill(0);
+        arena.unshift(row);
+        ++y;
+
+        player.score += rowCount * 10;
+        rowCount *= 2;
+    }
+}
 
 /////////////////////////////////////////////
 //             PLAYER SETTINGS             //
@@ -287,10 +284,16 @@ document.addEventListener('keydown', event => {
 //                AUTO LAUNCH              //
 /////////////////////////////////////////////
 
-playerReset();
-update();
-updateScore();
 
 function updateScore(){
     document.getElementById('score').innerText = player.score
 }
+
+function gamestart(){
+    playerReset();
+    update();
+    updateScore();
+}
+
+const gamestartbtn = document.getElementById('gamebtn');
+gamebtn.onclick = gamestart;

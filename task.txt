@@ -39,14 +39,3 @@ things to add quickly :
 - Next blocks (at least 4 preview blocks)
 __________________
 
-test code :
-
-const testString = "TJLOSZI";
-var randomletter = Math.floor(Math.random()*7);
-console.log(testString[randomletter]);
-
-36.56 playerreset & endgame
-
-// createPiece(pieces[pieces.length * Math.random() | 0]); l.187
-
-//
