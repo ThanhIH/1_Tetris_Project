@@ -4,34 +4,26 @@
 }
 body{
     text-align: center;
-}
-.img{
-    position:absolute;
-    z-index:1;
+    height: auto;
+    width: 100%;
 }
 
 
 canvas{
     background: #202028;
     color: #fff;    
-    font-size: 2em; 
     text-align : center;
     position: relative;
-    top: 50px;
-    padding: 0 70px 0 80px;
+
 
 }
 
 .container{
-    background-image: url('./img/5c9a49dd36f27acf248b66a0f6affdc1.png');
-    background-repeat: no-repeat;
-    display:inline-block;
-    position: relative;
-    margin: 0 auto;
-    height: 100vh;
-    width: 100vh;
-    background-position: center;
-    background-size: 524px 1066px;
+    width: auto;
+    display: flex;
+    height: auto;
+    justify-content: center;
+    margin: 20vh auto;
 }
 
 
@@ -49,9 +41,8 @@ canvas{
 	padding:2px 21px;
 	text-decoration:none;
     text-shadow:0px 1px 0px #2f6627;
-    margin-top: 415px;
-    transform: rotate(-31deg);
-    margin-left: 501px;
+    margin: 0 auto;
+
 }
 #gamebtn:hover {
 	background-color:#020500;
@@ -60,11 +51,27 @@ canvas{
 	position:relative;
 	top:1px;
 }
-
-h1, #score{
+ .text_Container{
+    background-color: grey;
     display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+ }
 
+.game_Container{
+    width: 22%;
+    display: flex;
+    border: 2vh solid red;
 }
+
+
 #score{
     font-size: -webkit-xxx-large;
+}
+
+.outro{
+    display: flex;
+    flex-direction: column;
+    width: 20vh;
+    margin: 5vh;
 }
